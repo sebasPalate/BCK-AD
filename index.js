@@ -12,7 +12,9 @@ app.use(express.json());
 
 // Usar las rutas del usuario
 const userRoutes = require('./router/userRoutes');
+const equipmentRoutes = require('./router/equipmentRoutes');
 app.use(userRoutes);
+app.use(equipmentRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {

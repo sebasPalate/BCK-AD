@@ -86,3 +86,4 @@ router.delete('/users/:cedula', async (req, res) => {
     res.status(500).json({ error: 'Error en el servidor' });
   }
 })
+
