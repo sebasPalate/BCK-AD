@@ -10,12 +10,12 @@ class User {
     this.connection = db.connection;
   }
 
-  register(cedula, nombre, apellido, correo, contrasena) {
+  register(cedula, nombre, apellido, correo, contrasena, rol) {
     const sql = `
-      INSERT INTO usuario (cedula, nombre, apellido, correo, contrasena)
+      INSERT INTO usuario (cedula, nombre, apellido, correo, contrasena, rol)
       VALUES (?, ?, ?, ?, ?)
     `;
-    const values = [cedula, nombre, apellido, correo, contrasena];
+    const values = [cedula, nombre, apellido, correo, contrasena, rol];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
@@ -72,12 +72,12 @@ class User {
     });
   }
 
-  update(cedula, nombre, apellido, correo, contrasena) {
+  update(cedula, nombre, apellido, correo, contrasena, rol) {
     const sql = `
-      UPDATE usuarios SET nombre = ?, apellido = ?, correo = ?, contrasena = ?
+      UPDATE usuarios SET nombre = ?, apellido = ?, correo = ?, contrasena = ?, rol = ?
       WHERE cedula = ?
     `;
-    const values = [nombre, apellido, correo, contrasena, cedula];
+    const values = [nombre, apellido, correo, contrasena, cedula, rol];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
