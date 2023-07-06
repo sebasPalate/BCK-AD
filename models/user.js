@@ -13,7 +13,7 @@ class User {
   register(cedula, nombre, apellido, correo, contrasena, rol) {
     const sql = `
       INSERT INTO usuario (cedula, nombre, apellido, correo, contrasena, rol)
-      VALUES (?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
     const values = [cedula, nombre, apellido, correo, contrasena, rol];
 
