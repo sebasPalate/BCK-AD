@@ -10,12 +10,12 @@ class User {
     this.connection = db.connection;
   }
 
-  createEquipment(nombre_equipo, descripcion_equipo, caracteristica, estado) {
+  create(nombre, descripcion, caracteristicas, estado) {
     const sql = `
-      INSERT INTO usuarios (nombre_equipo, descripcion_equipo, caracteristica, estado)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO equipo (nombre, descripcion, caracteristicas, estado)
+      VALUES (?, ?, ?, ?)
     `;
-    const values = [nombre_equipo, descripcion_equipo, caracteristica, estado];
+    const values = [nombre, descripcion, caracteristicas, estado];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
@@ -42,9 +42,9 @@ class User {
     });
   }
 
-  getOne(nombre) {
-    const sql = 'SELECT * FROM usuarios WHERE nombre_equipo = ?';
-    const values = [cedula];
+  getOne(id_equipo) {
+    const sql = 'SELECT * FROM equipo WHERE id_equipo = ?';
+    const values = [id_equipo];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
@@ -57,12 +57,12 @@ class User {
     });
   }
 
-  update(cedula, nombre, apellido, correo, contraseña) {
+  update(id_equipo, nombre, descripcion, caracteristicas, estado) {
     const sql = `
-      UPDATE usuarios SET nombre = ?, apellido = ?, correo = ?, contraseña = ?
-      WHERE cedula = ?
+      UPDATE equipo SET nombre = ?, descripcion = ?, caracteristicas = ?, estado = ?
+      WHERE id_equipo = ?
     `;
-    const values = [nombre, apellido, correo, contraseña, cedula];
+    const values = [nombre, descripcion, caracteristicas, estado, id_equipo];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
@@ -75,9 +75,9 @@ class User {
     });
   }
 
-  delete(cedula) {
-    const sql = 'DELETE FROM usuarios WHERE cedula = ?';
-    const values = [cedula];
+  delete(id_equipo) {
+    const sql = 'DELETE FROM equipo WHERE id_equipo = ?';
+    const values = [id_equipo];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {

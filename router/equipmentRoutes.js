@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-// Ruta para obtener todos los equipos
 const Equipment = require('../models/equipment');
 const equipment = new Equipment();
 
+// Ruta para obtener todos los equipos
 router.get('/equipments', async (req, res) => {
     try {
         const equipments = await equipment.getAll();
@@ -16,11 +16,11 @@ router.get('/equipments', async (req, res) => {
 });
 
 // Ruta para obtener un equipo por su id
-router.get('/equipments/:id', async (req, res) => {
-    const { id } = req.params;
+router.get('/equipments/:id_equipo', async (req, res) => {
+    const { id_equipo } = req.params;
 
     try {
-        const equipments = await equipment.getOne(id);
+        const equipments = await equipment.getOne(id_equipo);
         res.json(equipments);
     } catch (error) {
         console.error('Error en la consulta:', error);
@@ -30,11 +30,11 @@ router.get('/equipments/:id', async (req, res) => {
 
 // Ruta para crear un equipo
 router.post('/equipments', async (req, res) => {
-    const { nombre, descripcion, cantidad } = req.body;
+    const { nombre, descripcion, caracteristicas, estado } = req.body;
 
     try {
-        await equipment.create(nombre, descripcion, cantidad);
-        res.json({ message: 'Equipo creado' });
+        await equipment.create(nombre, descripcion, caracteristicas, estado);
+        res.json({ message: 'Equipo añadido' });
     } catch (error) {
         console.error('Error en la creación:', error);
         res.status(500).json({ error: 'Error en el servidor' });
@@ -42,12 +42,12 @@ router.post('/equipments', async (req, res) => {
 });
 
 // Ruta para actualizar un equipo
-router.put('/equipments/:id', async (req, res) => {
-    const { id } = req.params;
-    const { nombre, descripcion, cantidad } = req.body;
+router.put('/equipments/:id_equipo', async (req, res) => {
+    const { id_equipo } = req.params;
+    const { nombre, descripcion, caracteristicas, estado } = req.body;
 
     try {
-        await equipment.update(id, nombre, descripcion, cantidad);
+        await equipment.update(id_equipo, nombre, descripcion, caracteristicas, estado);
         res.json({ message: 'Equipo actualizado' });
     } catch (error) {
         console.error('Error en la actualización:', error);
@@ -56,14 +56,16 @@ router.put('/equipments/:id', async (req, res) => {
 });
 
 // Ruta para eliminar un equipo
-router.delete('/equipments/:id', async (req, res) => {
-    const { id } = req.params;
+router.delete('/equipments/:id_equipo', async (req, res) => {
+    const { id_equipo } = req.params;
 
     try {
-        await equipment.delete(id);
+        await equipment.delete(id_equipo);
         res.json({ message: 'Equipo eliminado' });
     } catch (error) {
         console.error('Error en la eliminación:', error);
         res.status(500).json({ error: 'Error en el servidor' });
     }
 });
+
+module.exports = router;

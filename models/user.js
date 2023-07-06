@@ -12,7 +12,7 @@ class User {
 
   register(cedula, nombre, apellido, correo, contraseña) {
     const sql = `
-      INSERT INTO usuarios (cedula, nombre, apellido, correo, contraseña)
+      INSERT INTO usuario (cedula, nombre, apellido, correo, contraseña)
       VALUES (?, ?, ?, ?, ?)
     `;
     const values = [cedula, nombre, apellido, correo, contraseña];
@@ -44,7 +44,7 @@ class User {
   }
 
   getAll() {
-    const sql = 'SELECT * FROM usuarios';
+    const sql = 'SELECT * FROM usuario';
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, (err, result) => {
@@ -58,7 +58,7 @@ class User {
   }
 
   getOne(cedula) {
-    const sql = 'SELECT * FROM usuarios WHERE cedula = ?';
+    const sql = 'SELECT * FROM usuario WHERE cedula = ?';
     const values = [cedula];
 
     return new Promise((resolve, reject) => {
@@ -91,7 +91,7 @@ class User {
   }
 
   delete(cedula) {
-    const sql = 'DELETE FROM usuarios WHERE cedula = ?';
+    const sql = 'DELETE FROM usuario WHERE cedula = ?';
     const values = [cedula];
 
     return new Promise((resolve, reject) => {
