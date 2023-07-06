@@ -5,9 +5,10 @@ class DB {
   constructor() {
     this.connection = mysql.createConnection({
       host: '34.151.203.189',
+      port: '3306',
       user: 'bck-ad',
       password: 'bck-ad',
-      database: 'bck-ad-data'
+      database: 'bck-ad-bd'
     });
   }
 
