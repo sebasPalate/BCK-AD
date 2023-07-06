@@ -6,10 +6,10 @@ const user = new User();
 
 // Ruta de registro
 router.post('/register', async (req, res) => {
-  const { cedula, nombre, apellido, correo, contraseña } = req.body;
+  const { cedula, nombre, apellido, correo, contrasena } = req.body;
 
   try {
-    await user.register(cedula, nombre, apellido, correo, contraseña);
+    await user.register(cedula, nombre, apellido, correo, contrasena);
     res.json({ message: 'Registro exitoso' });
   } catch (error) {
     console.error('Error en el registro:', error);
@@ -19,10 +19,10 @@ router.post('/register', async (req, res) => {
 
 // Ruta de inicio de sesión
 router.post('/login', async (req, res) => {
-  const { cedula, contraseña } = req.body;
+  const { cedula, contrasena } = req.body;
 
   try {
-    const isAuthenticated = await user.authenticate(cedula, contraseña);
+    const isAuthenticated = await user.authenticate(cedula, contrasena);
     if (isAuthenticated) {
       res.json({ message: 'Inicio de sesión exitoso' });
     } else {
@@ -63,10 +63,10 @@ router.get('/users/:cedula', async (req, res) => {
 // Ruta para actualizar un usuario
 router.put('/users/:cedula', async (req, res) => {
   const { cedula } = req.params;
-  const { nombre, apellido, correo, contraseña } = req.body;
+  const { nombre, apellido, correo, contrasena } = req.body;
 
   try {
-    await user.update(cedula, nombre, apellido, correo, contraseña);
+    await user.update(cedula, nombre, apellido, correo, contrasena);
     res.json({ message: 'Usuario actualizado' });
   } catch (error) {
     console.error('Error en la actualización:', error);

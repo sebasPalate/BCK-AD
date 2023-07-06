@@ -10,12 +10,12 @@ class User {
     this.connection = db.connection;
   }
 
-  register(cedula, nombre, apellido, correo, contraseña) {
+  register(cedula, nombre, apellido, correo, contrasena) {
     const sql = `
-      INSERT INTO usuario (cedula, nombre, apellido, correo, contraseña)
+      INSERT INTO usuario (cedula, nombre, apellido, correo, contrasena)
       VALUES (?, ?, ?, ?, ?)
     `;
-    const values = [cedula, nombre, apellido, correo, contraseña];
+    const values = [cedula, nombre, apellido, correo, contrasena];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
@@ -28,9 +28,9 @@ class User {
     });
   }
 
-  authenticate(cedula, contraseña) {
-    const sql = 'SELECT id FROM usuarios WHERE cedula = ? AND contraseña = ?';
-    const values = [cedula, contraseña];
+  authenticate(cedula, contrasena) {
+    const sql = 'SELECT id FROM usuarios WHERE cedula = ? AND contrasena = ?';
+    const values = [cedula, contrasena];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
@@ -72,12 +72,12 @@ class User {
     });
   }
 
-  update(cedula, nombre, apellido, correo, contraseña) {
+  update(cedula, nombre, apellido, correo, contrasena) {
     const sql = `
-      UPDATE usuarios SET nombre = ?, apellido = ?, correo = ?, contraseña = ?
+      UPDATE usuarios SET nombre = ?, apellido = ?, correo = ?, contrasena = ?
       WHERE cedula = ?
     `;
-    const values = [nombre, apellido, correo, contraseña, cedula];
+    const values = [nombre, apellido, correo, contrasena, cedula];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
