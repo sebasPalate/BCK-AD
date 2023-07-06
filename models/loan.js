@@ -97,3 +97,5 @@ class Loan {
     }
 }
 
+module.exports = Loan;
+
