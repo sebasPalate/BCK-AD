@@ -30,10 +30,10 @@ router.get('/loans/:id_prestamo', async (req, res) => {
 
 // Ruta para crear un prestamo
 router.post('/loans', async (req, res) => {
-    const { id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado } = req.body;
+    const { id_equipo_per, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado } = req.body;
 
     try {
-        await loan.create(id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado);
+        await loan.create(id_equipo_per, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado);
         res.json({ message: 'Prestamo añadido' });
     } catch (error) {
         console.error('Error en la creación:', error);

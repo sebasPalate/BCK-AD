@@ -5,7 +5,7 @@ const User = require('../models/user');
 const user = new User();
 
 // Ruta de registro
-router.post('/register', async (req, res) => {
+router.post('/users', async (req, res) => {
   const { cedula, nombre, apellido, rol, correo, contrasena } = req.body;
 
   try {

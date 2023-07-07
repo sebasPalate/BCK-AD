@@ -11,11 +11,14 @@ class Loan {
 
 
     // Crear Prestamo
-    create(id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado) {
+    create(id_equipo_per, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado) {
+        const fecha_prestamo = new Date();
+
         const sql = `
       INSERT INTO prestamo (id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
+
 
         const values = [id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado];
 
