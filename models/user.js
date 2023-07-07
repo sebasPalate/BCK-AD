@@ -28,21 +28,6 @@ class User {
     });
   }
 
-  authenticate(cedula, contrasena) {
-    const sql = 'SELECT id FROM usuarios WHERE cedula = ? AND contrasena = ?';
-    const values = [cedula, contrasena];
-
-    return new Promise((resolve, reject) => {
-      this.connection.query(sql, values, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.length > 0);
-        }
-      });
-    });
-  }
-
   getAll() {
     const sql = 'SELECT * FROM usuario';
 
@@ -74,10 +59,10 @@ class User {
 
   update(cedula, nombre, apellido, rol, correo, contrasena) {
     const sql = `
-      UPDATE usuarios SET nombre = ?, apellido = , rol = ?, correo = ?, contrasena = ?
+      UPDATE usuario SET nombre = ?, apellido = ?, rol = ?, correo = ?, contrasena = ?
       WHERE cedula = ?
     `;
-    const values = [cedula, nombre, apellido, rol, correo, contrasena];
+    const values = [nombre, apellido, rol, correo, contrasena, cedula];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {

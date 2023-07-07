@@ -30,10 +30,10 @@ router.get('/equipments/:id_equipo', async (req, res) => {
 
 // Ruta para crear un equipo
 router.post('/equipments', async (req, res) => {
-    const { nombre, descripcion, caracteristicas, estado } = req.body;
+    const { nombre, marca, caracteristicas, estado } = req.body;
 
     try {
-        await equipment.create(nombre, descripcion, caracteristicas, estado);
+        await equipment.create(nombre, marca, caracteristicas, estado);
         res.json({ message: 'Equipo añadido' });
     } catch (error) {
         console.error('Error en la creación:', error);

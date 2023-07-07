@@ -11,13 +11,13 @@ class Loan {
 
 
     // Crear Prestamo
-    create(id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado) {
+    create(id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado) {
         const sql = `
-      INSERT INTO prestamo (id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO prestamo (id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
-        const values = [id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado];
+        const values = [id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado];
 
         return new Promise((resolve, reject) => {
             this.connection.query(sql, values, (err, result) => {
@@ -62,12 +62,12 @@ class Loan {
     }
 
     // Actualizar un prestamo
-    update(id_prestamo, id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado) {
+    update(id_prestamo, id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado) {
         const sql = `
-        UPDATE prestamo SET id_equipo_per = ?, fecha_prestamo = ?, fecha_devolucion = ?, id_usuario_presta_per = ?, id_usuario_solicita_per = ?, observaciones = ?, estado_equipo = ?, estado = ?
+        UPDATE prestamo SET id_equipo_per = ?, fecha_prestamo = ?, fecha_devolucion = ?, id_usuario_presta_per = ?, id_usuario_solicita_per = ?, observaciones = ?, estado = ?
         WHERE id_prestamo = ?
         `;
-        const values = [id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado, id_prestamo];
+        const values = [id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado, id_prestamo];
 
         return new Promise((resolve, reject) => {
             this.connection.query(sql, values, (err, result) => {

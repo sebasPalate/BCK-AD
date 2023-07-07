@@ -20,8 +20,8 @@ router.get('/loans/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
 
     try {
-        const loan = await equipment.getOne(id_prestamo);
-        res.json(loan);
+        const loans = await loan.getOne(id_prestamo);
+        res.json(loans);
     } catch (error) {
         console.error('Error en la consulta:', error);
         res.status(500).json({ error: 'Error en el servidor' });
@@ -30,10 +30,10 @@ router.get('/loans/:id_prestamo', async (req, res) => {
 
 // Ruta para crear un prestamo
 router.post('/loans', async (req, res) => {
-    const { id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado } = req.body;
+    const { id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado } = req.body;
 
     try {
-        await equipment.create(id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado);
+        await loan.create(id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado);
         res.json({ message: 'Prestamo añadido' });
     } catch (error) {
         console.error('Error en la creación:', error);
@@ -44,10 +44,10 @@ router.post('/loans', async (req, res) => {
 // Ruta para actualizar un prestamo
 router.put('/loans/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
-    const { id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado } = req.body;
+    const { id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado } = req.body;
 
     try {
-        await equipment.update(id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado_equipo, estado, id_prestamo);
+        await loan.update(id_prestamo, id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado);
         res.json({ message: 'Prestamo actualizado' });
     } catch (error) {
         console.error('Error en la actualización:', error);
@@ -60,7 +60,7 @@ router.delete('/loans/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
 
     try {
-        await equipment.delete(id_prestamo);
+        await loan.delete(id_prestamo);
         res.json({ message: 'Prestamo eliminado' });
     } catch (error) {
         console.error('Error en la eliminación:', error);
