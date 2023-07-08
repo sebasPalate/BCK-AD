@@ -10,12 +10,12 @@ class Equipment {
     this.connection = db.connection;
   }
 
-  create(nombre, descripcion, caracteristicas, estado) {
+  create(nombre, marca, caracteristicas, estado) {
     const sql = `
       INSERT INTO equipo (nombre, marca, caracteristicas, estado)
       VALUES (?, ?, ?, ?)
     `;
-    const values = [nombre, descripcion, caracteristicas, estado];
+    const values = [nombre, marca, caracteristicas, estado];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {
@@ -57,12 +57,12 @@ class Equipment {
     });
   }
 
-  update(id_equipo, nombre, descripcion, caracteristicas, estado) {
+  update(id_equipo, nombre, marca, caracteristicas, estado) {
     const sql = `
       UPDATE equipo SET nombre = ?, marca = ?, caracteristicas = ?, estado = ?
       WHERE id_equipo = ?
     `;
-    const values = [nombre, descripcion, caracteristicas, estado, id_equipo];
+    const values = [nombre, marca, caracteristicas, estado, id_equipo];
 
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, result) => {

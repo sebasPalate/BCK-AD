@@ -44,10 +44,10 @@ router.post('/equipments', async (req, res) => {
 // Ruta para actualizar un equipo
 router.put('/equipments/:id_equipo', async (req, res) => {
     const { id_equipo } = req.params;
-    const { nombre, descripcion, caracteristicas, estado } = req.body;
+    const { nombre, marca, caracteristicas, estado } = req.body;
 
     try {
-        await equipment.update(id_equipo, nombre, descripcion, caracteristicas, estado);
+        await equipment.update(id_equipo, nombre, marca, caracteristicas, estado);
         res.json({ message: 'Equipo actualizado' });
     } catch (error) {
         console.error('Error en la actualización:', error);
