@@ -4,13 +4,13 @@ const mysql = require('mysql2');
 class DB {
   constructor() {
     this.connection = mysql.createConnection({
-      host: '34.151.203.189',
-      //host: 'localhost',
+      //host: '34.151.203.189',
+      host: 'localhost',
       port: '3306',
-      user: 'bck-ad',
-      //user: 'root',
-      password: 'bck-ad',
-      //password: 'sebas1105',
+      //user: 'bck-ad',
+      user: 'root',
+      //password: 'bck-ad',
+      password: 'sebas1105',
       database: 'bck-ad-bd'
     });
   }

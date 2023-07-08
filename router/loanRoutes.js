@@ -15,6 +15,58 @@ router.get('/loans', async (req, res) => {
     }
 });
 
+// Ruta para obtener todos los prestamos pendientes
+router.get('/loans/pendientes', async (req, res) => {
+    try {
+        const loans = await loan.getAllPendientes();
+        res.json(loans);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+// Ruta para aprobar un prestamo
+router.put('/loans/aprobar/:id_prestamo', async (req, res) => {
+    const { id_prestamo } = req.params;
+    const { id_usuario_presta_per } = req.body;
+
+    try {
+        await loan.approve(id_prestamo, id_usuario_presta_per);
+        res.json({ message: 'Prestamo Aprobado!' });
+    } catch (error) {
+        console.error('Error en la actualización:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+// Ruta para rechazar un prestamo
+router.put('/loans/rechazar/:id_prestamo', async (req, res) => {
+    const { id_prestamo } = req.params;
+
+    try {
+        await loan.reject(id_prestamo);
+        res.json({ message: 'Prestamo Rechazado!' });
+    } catch (error) {
+        console.error('Error en la actualización:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+// Ruta para devolver un prestamo
+router.put('/loans/devolver/:id_prestamo', async (req, res) => {
+    const { id_prestamo } = req.params;
+    const { observaciones } = req.body;
+
+    try {
+        await loan.return(id_prestamo, observaciones);
+        res.json({ message: 'Prestamo Devuelto!' });
+    } catch (error) {
+        console.error('Error en la actualización:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
 // Ruta para obtener un prestamo por su id
 router.get('/loans/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
@@ -30,11 +82,11 @@ router.get('/loans/:id_prestamo', async (req, res) => {
 
 // Ruta para crear un prestamo
 router.post('/loans', async (req, res) => {
-    const { id_equipo_per, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado } = req.body;
+    const { id_equipo_per, id_usuario_solicita_per } = req.body;
 
     try {
-        await loan.create(id_equipo_per, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado);
-        res.json({ message: 'Prestamo añadido' });
+        await loan.create(id_equipo_per, id_usuario_solicita_per);
+        res.json({ message: 'Prestamo Solicitado!' });
     } catch (error) {
         console.error('Error en la creación:', error);
         res.status(500).json({ error: 'Error en el servidor' });
