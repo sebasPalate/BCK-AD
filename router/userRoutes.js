@@ -19,10 +19,10 @@ router.post('/users', async (req, res) => {
 
 // Ruta de inicio de sesión
 router.post('/login', async (req, res) => {
-  const { cedula, contrasena } = req.body;
+  const { correo, contrasena } = req.body;
 
   try {
-    const isAuthenticated = await user.authenticate(cedula, contrasena);
+    const isAuthenticated = await user.authenticate(correo, contrasena);
     if (isAuthenticated) {
       res.json({ message: 'Inicio de sesión exitoso' });
     } else {

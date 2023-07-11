@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = 3000;
 
 const DB = require('./DB');
@@ -8,6 +9,7 @@ const db = new DB();
 db.connect();
 
 // Configurar middlewares
+app.use(cors());
 app.use(express.json());
 
 // Usar las rutas del usuario

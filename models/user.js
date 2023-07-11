@@ -28,6 +28,23 @@ class User {
     });
   }
 
+  authenticate(correo, contrasena) {
+    const sql = 'SELECT * FROM usuario WHERE correo = ? AND contrasena = ?';
+    const values = [correo, contrasena];
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.length > 0 ? result : null);
+        }
+      });
+    });
+  }
+
+
+
   getAll() {
     const sql = 'SELECT * FROM usuario';
 
