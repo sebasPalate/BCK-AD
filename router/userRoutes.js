@@ -24,7 +24,8 @@ router.post('/login', async (req, res) => {
   try {
     const isAuthenticated = await user.authenticate(correo, contrasena);
     if (isAuthenticated) {
-      res.json({ message: 'Inicio de sesión exitoso' });
+      const userData = await user.getOne(cedula);
+      res.json(userData);
     } else {
       res.status(401).json({ error: 'Credenciales inválidas' });
     }
