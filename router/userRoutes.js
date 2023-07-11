@@ -24,6 +24,7 @@ router.post('/login', async (req, res) => {
   try {
     const isAuthenticated = await user.authenticate(correo, contrasena);
     if (isAuthenticated) {
+      const { cedula } = isAuthenticated[0];
       const userData = await user.getOne(cedula);
       res.json(userData);
     } else {
