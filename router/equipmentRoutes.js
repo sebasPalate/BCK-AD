@@ -15,6 +15,17 @@ router.get('/equipments', async (req, res) => {
     }
 });
 
+// Obtener Equipos Disponibles
+router.get('/equipmentsAvailable', async (req, res) => {
+    try {
+        const equipments = await equipment.equipmentsAvailable();
+        res.json(equipments);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
 // Ruta para obtener un equipo por su id
 router.get('/equipments/:id_equipo', async (req, res) => {
     const { id_equipo } = req.params;
