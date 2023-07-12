@@ -32,7 +32,7 @@ class Loan {
 
     // Aprobar Prestamo
     approve(id_prestamo, id_usuario_presta_per) {
-        const fecha_prestamo = new Date().toLocaleString();
+        const fecha_prestamo = new Date().toDateString();
         const estado = "APROBADO";
 
         const sql = `
@@ -101,7 +101,7 @@ class Loan {
 
     // Devolver Prestamo
     return(id_prestamo, observaciones) {
-        const fecha_devolucion = new Date().toLocaleString();
+        const fecha_devolucion = new Date().toDateString();
 
         const sql = `
             UPDATE
@@ -162,9 +162,9 @@ class Loan {
                 p.id_prestamo,
                 e.nombre,
                 e.marca,
+                p.fecha_prestamo,
                 u.nombre,
                 u.apellido,
-                p.fecha_prestamo,
                 p.fecha_devolucion,
                 p.observaciones,
                 p.estado
