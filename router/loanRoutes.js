@@ -15,6 +15,18 @@ router.get('/loans', async (req, res) => {
     }
 });
 
+// Ruta para obtener todos los prestamos con el nombre del equipo y el nombre del usuario
+router.get('/loans/names', async (req, res) => {
+    try {
+        const loans = await loan.getAllWithNames();
+        res.json(loans);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+
 // Ruta para obtener todos los prestamos pendientes
 router.get('/loans/pendientes', async (req, res) => {
     try {

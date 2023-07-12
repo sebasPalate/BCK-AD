@@ -155,6 +155,40 @@ class Loan {
         });
     }
 
+    // Obtener todos los prestamos con el nombre del equipo y el nombre del usuario
+    getAllWithNames() {
+        const sql = `
+            SELECT
+                p.id_prestamo,
+                e.nombre_equipo,
+                u.nombre_usuario,
+                p.fecha_prestamo,
+                p.fecha_devolucion,
+                p.observaciones,
+                p.estado
+            FROM
+                prestamo p
+            INNER JOIN
+                equipo e
+            ON
+                p.id_equipo_per = e.id_equipo
+            INNER JOIN
+                usuario u
+            ON
+                p.id_usuario_solicita_per = u.id_usuario
+        `;
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result.length > 0 ? result : null);
+                }
+            });
+        });
+    }
+
+
     // Obtener todos los prestamos Pendientes
     getAllPendientes() {
         const sql = `SELECT
