@@ -12,7 +12,7 @@ class Loan {
     // Crear Prestamo
     create(id_equipo_per, id_usuario_solicita_per) {
         const estado = "PENDIENTE";
-        const id_usuario_presta_per = "";
+        const id_usuario_presta_per = 0;
 
         const sql = `
             INSERT INTO prestamo (id_equipo_per, id_usuario_presta_per, id_usuario_solicita_per, estado) VALUES (?, ?, ?, ?)
