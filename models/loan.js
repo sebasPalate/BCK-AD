@@ -161,7 +161,9 @@ class Loan {
             SELECT
                 p.id_prestamo,
                 e.nombre,
+                e.marca,
                 u.nombre,
+                u.apellido,
                 p.fecha_prestamo,
                 p.fecha_devolucion,
                 p.observaciones,
