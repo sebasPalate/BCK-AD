@@ -41,10 +41,10 @@ router.get('/equipments/:id_equipo', async (req, res) => {
 
 // Ruta para crear un equipo
 router.post('/equipments', async (req, res) => {
-    const { nombre, marca, caracteristicas, estado } = req.body;
+    const { nombre_equipo, marca, caracteristicas, estado } = req.body;
 
     try {
-        await equipment.create(nombre, marca, caracteristicas, estado);
+        await equipment.create(nombre_equipo, marca, caracteristicas, estado);
         res.json({ message: 'Equipo añadido' });
     } catch (error) {
         console.error('Error en la creación:', error);
@@ -55,10 +55,10 @@ router.post('/equipments', async (req, res) => {
 // Ruta para actualizar un equipo
 router.put('/equipments/:id_equipo', async (req, res) => {
     const { id_equipo } = req.params;
-    const { nombre, marca, caracteristicas, estado } = req.body;
+    const { nombre_equipo, marca, caracteristicas, estado } = req.body;
 
     try {
-        await equipment.update(id_equipo, nombre, marca, caracteristicas, estado);
+        await equipment.update(id_equipo, nombre_equipo, marca, caracteristicas, estado);
         res.json({ message: 'Equipo actualizado' });
     } catch (error) {
         console.error('Error en la actualización:', error);
