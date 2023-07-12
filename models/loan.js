@@ -160,8 +160,8 @@ class Loan {
         const sql = `
             SELECT
                 p.id_prestamo,
-                e.nombre_equipo,
-                u.nombre_usuario,
+                e.nombre,
+                u.nombre,
                 p.fecha_prestamo,
                 p.fecha_devolucion,
                 p.observaciones,
