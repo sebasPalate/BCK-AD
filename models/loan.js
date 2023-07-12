@@ -15,14 +15,14 @@ class Loan {
         const id_usuario_presta_per = null;
 
         const sql = `
-            INSERT INTO prestamo (id_equipo_per, id_usuario_solicita_per, id_usuario_presta_per, estado) VALUES (?, ?, ?, ?)
+            INSERT INTO prestamo (id_equipo_per, id_usuario_presta_per, id_usuario_solicita_per, estado) VALUES (?, ?, ?, ?)
         `;
 
         //const sql = `
           //  INSERT INTO prestamo (id_equipo_per, id_usuario_solicita_per, estado) VALUES (?, ?, ?)
         //`;
 
-        const values = [id_equipo_per, id_usuario_solicita_per, estado];
+        const values = [id_equipo_per, id_usuario_presta_per, id_usuario_solicita_per, estado];
 
         return new Promise((resolve, reject) => {
             this.connection.query(sql, values, (err, result) => {
