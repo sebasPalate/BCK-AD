@@ -9,6 +9,83 @@ class Loan {
         this.connection = db.connection;
     }
 
+    // ---------- GETS ----------
+
+    // Obtener Prestamos
+    getAll() {
+        const sql = 'SELECT * FROM prestamo';
+
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result.length > 0 ? result : { message: 'No hay Prestamos'});
+                }
+            });
+        });
+    }
+
+    // Obtener Prestamos Pendientes
+    getAllPendientes() {
+        const sql = `SELECT
+                        id_prestamo,
+                        id_equipo_per,
+                        id_usuario_solicita_per
+                    FROM
+                        prestamo
+                    WHERE estado = "Pendiente"`;
+
+        const values = ["Pendiente"];
+
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, values, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result.length > 0 ? result : null);
+                }
+            });
+        });
+    }
+
+    // Obtener Prestamos con el Nombre del Equipo y el Nombre del Usuario
+    getAllWithNames() {
+        const sql = `
+            SELECT
+                p.id_prestamo,
+                e.nombre_equipo,
+                e.marca,
+                p.fecha_prestamo,
+                u.nombre,
+                u.apellido,
+                p.fecha_devolucion,
+                p.observaciones,
+                p.estado
+            FROM
+                prestamo p
+            INNER JOIN
+                equipo e
+            ON
+                p.id_equipo_per = e.id_equipo
+            INNER JOIN
+                usuario u
+            ON
+                p.id_usuario_solicita_per = u.id_usuario
+        `;
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result.length > 0 ? result : null);
+                }
+            });
+        });
+    }
+
+
+
     // Crear Prestamo
     create(id_equipo_per, id_usuario_solicita_per) {
         const estado = "PENDIENTE";
@@ -19,7 +96,7 @@ class Loan {
         `;
 
         //const sql = `
-          //  INSERT INTO prestamo (id_equipo_per, id_usuario_solicita_per, estado) VALUES (?, ?, ?)
+        //  INSERT INTO prestamo (id_equipo_per, id_usuario_solicita_per, estado) VALUES (?, ?, ?)
         //`;
 
         const values = [id_equipo_per, id_usuario_presta_per, id_usuario_solicita_per, estado];
@@ -145,78 +222,10 @@ class Loan {
         });
     }
 
-    // Obtener todos los prestamos
-    getAll() {
-        const sql = 'SELECT * FROM prestamo';
 
-        return new Promise((resolve, reject) => {
-            this.connection.query(sql, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result.length > 0 ? result : null);
-                }
-            });
-        });
-    }
 
-    // Obtener todos los prestamos con el nombre del equipo y el nombre del usuario
-    getAllWithNames() {
-        const sql = `
-            SELECT
-                p.id_prestamo,
-                e.nombre_equipo,
-                e.marca,
-                p.fecha_prestamo,
-                u.nombre,
-                u.apellido,
-                p.fecha_devolucion,
-                p.observaciones,
-                p.estado
-            FROM
-                prestamo p
-            INNER JOIN
-                equipo e
-            ON
-                p.id_equipo_per = e.id_equipo
-            INNER JOIN
-                usuario u
-            ON
-                p.id_usuario_solicita_per = u.id_usuario
-        `;
-        return new Promise((resolve, reject) => {
-            this.connection.query(sql, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result.length > 0 ? result : null);
-                }
-            });
-        });
-    }
 
-    // Obtener todos los prestamos Pendientes
-    getAllPendientes() {
-        const sql = `SELECT
-                        id_prestamo,
-                        id_equipo_per,
-                        id_usuario_solicita_per
-                    FROM
-                        prestamo
-                    WHERE estado = "Pendiente"`;
 
-        const values = ["Pendiente"];
-
-        return new Promise((resolve, reject) => {
-            this.connection.query(sql, values, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result.length > 0 ? result : null);
-                }
-            });
-        });
-    }
 
     // Obtener un prestamo
     getOne(id_prestamo) {

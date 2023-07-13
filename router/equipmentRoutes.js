@@ -4,7 +4,9 @@ const router = express.Router();
 const Equipment = require('../models/equipment');
 const equipment = new Equipment();
 
-// Ruta para obtener todos los equipos
+// ---------- GETS ----------
+
+// Ruta Obtener Equipos
 router.get('/equipments', async (req, res) => {
     try {
         const equipments = await equipment.getAll();
@@ -15,7 +17,7 @@ router.get('/equipments', async (req, res) => {
     }
 });
 
-// Obtener Equipos Disponibles
+// Ruta Obtener Equipos Disponibles
 router.get('/equipmentsAvailable', async (req, res) => {
     try {
         const equipments = await equipment.equipmentsAvailable();
@@ -26,7 +28,18 @@ router.get('/equipmentsAvailable', async (req, res) => {
     }
 });
 
-// Ruta para obtener un equipo por su id
+// Ruta Obtener Equipos Disponiblles Funcionales
+router.get('/equipmentsAvailableFunctional', async (req, res) => {
+    try {
+        const equipments = await equipment.equipmentsAvailableFunctional();
+        res.json(equipments);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+// Ruta Obtener Equipo ID
 router.get('/equipments/:id_equipo', async (req, res) => {
     const { id_equipo } = req.params;
 
@@ -39,7 +52,10 @@ router.get('/equipments/:id_equipo', async (req, res) => {
     }
 })
 
-// Ruta para crear un equipo
+
+// ---------- POSTS ----------
+
+// Ruta Crear Equipo
 router.post('/equipments', async (req, res) => {
     const { nombre_equipo, marca, caracteristicas, estado } = req.body;
 
@@ -52,7 +68,10 @@ router.post('/equipments', async (req, res) => {
     }
 });
 
-// Ruta para actualizar un equipo
+
+// ---------- PUTS ----------
+
+// Ruta Actualizar Equipo
 router.put('/equipments/:id_equipo', async (req, res) => {
     const { id_equipo } = req.params;
     const { nombre_equipo, marca, caracteristicas, estado } = req.body;
@@ -66,7 +85,9 @@ router.put('/equipments/:id_equipo', async (req, res) => {
     }
 });
 
-// Ruta para eliminar un equipo
+// ---------- DELETE ----------
+
+// Ruta Eliminar Equipo ID
 router.delete('/equipments/:id_equipo', async (req, res) => {
     const { id_equipo } = req.params;
 

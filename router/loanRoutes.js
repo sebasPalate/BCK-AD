@@ -4,10 +4,24 @@ const router = express.Router();
 const Loan = require('../models/loan');
 const loan = new Loan();
 
-// Ruta para obtener todos los prestamos
+// ---------- GETS ----------
+
+
+// Ruta Obtener Prestamos
 router.get('/loans', async (req, res) => {
     try {
         const loans = await loan.getAll();
+        res.json({"message": loans});
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+// Ruta Obtener Prestamos Pendientes
+router.get('/loans/pendientes', async (req, res) => {
+    try {
+        const loans = await loan.getAllPendientes();
         res.json(loans);
     } catch (error) {
         console.error('Error en la consulta:', error);
@@ -15,7 +29,7 @@ router.get('/loans', async (req, res) => {
     }
 });
 
-// Ruta para obtener todos los prestamos con el nombre del equipo y el nombre del usuario
+// Ruta Obtener Prestamos con el Nombre del Equipo y el Nombre del Usuario
 router.get('/loans/names', async (req, res) => {
     try {
         const loans = await loan.getAllWithNames();
@@ -26,16 +40,7 @@ router.get('/loans/names', async (req, res) => {
     }
 });
 
-// Ruta para obtener todos los prestamos pendientes
-router.get('/loans/pendientes', async (req, res) => {
-    try {
-        const loans = await loan.getAllPendientes();
-        res.json(loans);
-    } catch (error) {
-        console.error('Error en la consulta:', error);
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
-});
+
 
 // Ruta para aprobar un prestamo
 router.put('/loans/aprobar/:id_prestamo', async (req, res) => {
@@ -130,5 +135,20 @@ router.delete('/loans/:id_prestamo', async (req, res) => {
         res.status(500).json({ error: 'Error en el servidor' });
     }
 });
+
+
+// Ruta para obtener los equipos de un usuario
+router.get('/loans/user/:id_usuario', async (req, res) => {
+    const { id_usuario } = req.params;
+
+    try {
+        const loans = await loan.getAllByUser(id_usuario);
+        res.json(loans);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+})
+
 
 module.exports = router;

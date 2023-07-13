@@ -4,7 +4,36 @@ const router = express.Router();
 const User = require('../models/user');
 const user = new User();
 
-// Ruta de registro
+// ---------- GETS ----------
+
+// Ruta Obtener Usuarios
+router.get('/users', async (req, res) => {
+  try {
+    const users = await user.getAll();
+    res.json(users);
+  } catch (error) {
+    console.error('Error en la consulta:', error);
+    res.status(500).json({ error: 'Error en el servidor' });
+  }
+});
+
+// Ruta Obtener Usuario Cédula
+router.get('/users/:cedula', async (req, res) => {
+  const { cedula } = req.params;
+
+  try {
+    const users = await user.getOne(cedula);
+    res.json(users);
+  } catch (error) {
+    console.error('Error en la consulta:', error);
+    res.status(500).json({ error: 'Error en el servidor' });
+  }
+});
+
+
+// ---------- POST ----------
+
+// Ruta Crear Usuario
 router.post('/users', async (req, res) => {
   const { cedula, nombre, apellido, rol, correo, contrasena } = req.body;
 
@@ -17,7 +46,7 @@ router.post('/users', async (req, res) => {
   }
 });
 
-// Ruta de inicio de sesión
+// Ruta Inicio Sesión
 router.post('/login', async (req, res) => {
   const { correo, contrasena } = req.body;
 
@@ -36,31 +65,10 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Ruta para obtener todos los usuarios
-router.get('/users', async (req, res) => {
-  try {
-    const users = await user.getAll();
-    res.json(users);
-  } catch (error) {
-    console.error('Error en la consulta:', error);
-    res.status(500).json({ error: 'Error en el servidor' });
-  }
-});
 
-// Ruta para obtener un usuario por su cédula
-router.get('/users/:cedula', async (req, res) => {
-  const { cedula } = req.params;
+// ---------- PUT ----------
 
-  try {
-    const users = await user.getOne(cedula);
-    res.json(users);
-  } catch (error) {
-    console.error('Error en la consulta:', error);
-    res.status(500).json({ error: 'Error en el servidor' });
-  }
-});
-
-// Ruta para actualizar un usuario
+// Ruta Actualizar Usuario
 router.put('/users/:cedula', async (req, res) => {
   const { cedula } = req.params;
   const { nombre, apellido, rol, correo, contrasena } = req.body;
@@ -74,7 +82,10 @@ router.put('/users/:cedula', async (req, res) => {
   }
 });
 
-// Ruta para eliminar un usuario
+
+// ---------- DELETE ----------
+
+// Ruta Eliminar Usuario
 router.delete('/users/:cedula', async (req, res) => {
   const { cedula } = req.params;
 
