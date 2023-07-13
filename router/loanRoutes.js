@@ -11,7 +11,7 @@ const loan = new Loan();
 router.get('/loans', async (req, res) => {
     try {
         const loans = await loan.getAll();
-        res.json({"message": loans});
+        res.json({"loans": loans});
     } catch (error) {
         console.error('Error en la consulta:', error);
         res.status(500).json({ error: 'Error en el servidor' });
