@@ -100,7 +100,7 @@ class Loan {
         });
     }
 
-    
+
 
 
     // ---------- POSTS ----------
@@ -108,7 +108,7 @@ class Loan {
     // Crear Prestamo
     create(id_equipo_per, id_usuario_solicita_per) {
         const estado = "PENDIENTE";
-        const id_usuario_presta_per = 1;
+        const id_usuario_presta_per = null;
 
         const sql = `
             INSERT INTO prestamo (id_equipo_per, id_usuario_presta_per, id_usuario_solicita_per, estado) VALUES (?, ?, ?, ?)
