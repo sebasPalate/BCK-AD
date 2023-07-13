@@ -195,7 +195,6 @@ class Loan {
         });
     }
 
-
     // Obtener todos los prestamos Pendientes
     getAllPendientes() {
         const sql = `SELECT

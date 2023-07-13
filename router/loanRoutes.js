@@ -26,7 +26,6 @@ router.get('/loans/names', async (req, res) => {
     }
 });
 
-
 // Ruta para obtener todos los prestamos pendientes
 router.get('/loans/pendientes', async (req, res) => {
     try {
@@ -112,7 +111,7 @@ router.put('/loans/:id_prestamo', async (req, res) => {
 
     try {
         await loan.update(id_prestamo, id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado);
-        res.json({ message: 'Prestamo actualizado' });
+        res.json({ message: 'Prestamo Actualizado!' });
     } catch (error) {
         console.error('Error en la actualización:', error);
         res.status(500).json({ error: 'Error en el servidor' });
@@ -125,7 +124,7 @@ router.delete('/loans/:id_prestamo', async (req, res) => {
 
     try {
         await loan.delete(id_prestamo);
-        res.json({ message: 'Prestamo eliminado' });
+        res.json({ message: 'Prestamo Eliminado!' });
     } catch (error) {
         console.error('Error en la eliminación:', error);
         res.status(500).json({ error: 'Error en el servidor' });

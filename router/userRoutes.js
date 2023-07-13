@@ -10,7 +10,7 @@ router.post('/users', async (req, res) => {
 
   try {
     await user.register(cedula, nombre, apellido, rol, correo, contrasena);
-    res.json({ message: 'Registro exitoso' });
+    res.json({ message: 'Registro Exitoso!' });
   } catch (error) {
     console.error('Error en el registro:', error);
     res.status(500).json({ error: 'Error en el servidor' });
@@ -35,8 +35,6 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Error en el servidor' });
   }
 });
-
-module.exports = router;
 
 // Ruta para obtener todos los usuarios
 router.get('/users', async (req, res) => {
@@ -69,7 +67,7 @@ router.put('/users/:cedula', async (req, res) => {
 
   try {
     await user.update(cedula, nombre, apellido, rol, correo, contrasena);
-    res.json({ message: 'Usuario actualizado' });
+    res.json({ message: 'Usuario Actualizado!' });
   } catch (error) {
     console.error('Error en la actualización:', error);
     res.status(500).json({ error: 'Error en el servidor' });
@@ -89,3 +87,4 @@ router.delete('/users/:cedula', async (req, res) => {
   }
 })
 
+module.exports = router;

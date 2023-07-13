@@ -45,7 +45,7 @@ router.post('/equipments', async (req, res) => {
 
     try {
         await equipment.create(nombre_equipo, marca, caracteristicas, estado);
-        res.json({ message: 'Equipo añadido' });
+        res.json({ message: 'Equipo Añadido!' });
     } catch (error) {
         console.error('Error en la creación:', error);
         res.status(500).json({ error: 'Error en el servidor' });
@@ -59,7 +59,7 @@ router.put('/equipments/:id_equipo', async (req, res) => {
 
     try {
         await equipment.update(id_equipo, nombre_equipo, marca, caracteristicas, estado);
-        res.json({ message: 'Equipo actualizado' });
+        res.json({ message: 'Equipo Actualizado!' });
     } catch (error) {
         console.error('Error en la actualización:', error);
         res.status(500).json({ error: 'Error en el servidor' });
@@ -72,7 +72,7 @@ router.delete('/equipments/:id_equipo', async (req, res) => {
 
     try {
         await equipment.delete(id_equipo);
-        res.json({ message: 'Equipo eliminado' });
+        res.json({ message: 'Equipo Eliminado!' });
     } catch (error) {
         console.error('Error en la eliminación:', error);
         res.status(500).json({ error: 'Error en el servidor' });
