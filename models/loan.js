@@ -20,7 +20,7 @@ class Loan {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(result.length > 0 ? result : { message: 'No hay Prestamos'});
+                    resolve(result.length > 0 ? result : { message: 'No hay Prestamos' });
                 }
             });
         });
@@ -43,7 +43,7 @@ class Loan {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(result.length > 0 ? result : null);
+                    resolve(result.length > 0 ? result : { "message": "No hay Prestamos Pendientes" });
                 }
             });
         });
@@ -78,13 +78,32 @@ class Loan {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(result.length > 0 ? result : null);
+                    resolve(result.length > 0 ? result : { "message": "No hay Prestamos" });
                 }
             });
         });
     }
 
+    // Obtener Prestamo ID
+    getOne(id_prestamo) {
+        const sql = 'SELECT * FROM prestamo WHERE id_prestamo = ?';
+        const values = [id_prestamo];
 
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, values, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result.length > 0 ? result[0] : null);
+                }
+            });
+        });
+    }
+
+    
+
+
+    // ---------- POSTS ----------
 
     // Crear Prestamo
     create(id_equipo_per, id_usuario_solicita_per) {
@@ -112,7 +131,10 @@ class Loan {
         });
     }
 
-    // Aprobar Prestamo
+
+    // ---------- PUTS ----------
+
+    // Aprobar Prestamo ID
     approve(id_prestamo, id_usuario_presta_per) {
         const fecha_prestamo = new Date().toDateString();
         const estado = "APROBADO";
@@ -155,7 +177,7 @@ class Loan {
         });
     }
 
-    // Rechazar Prestamo
+    // Rechazar Prestamo ID
     reject(id_prestamo) {
         const estado = "RECHAZADO";
 
@@ -181,7 +203,7 @@ class Loan {
         });
     }
 
-    // Devolver Prestamo
+    // Devolver Prestamo ID
     return(id_prestamo, observaciones) {
         const fecha_devolucion = new Date().toDateString();
 
@@ -222,28 +244,7 @@ class Loan {
         });
     }
 
-
-
-
-
-
-    // Obtener un prestamo
-    getOne(id_prestamo) {
-        const sql = 'SELECT * FROM prestamo WHERE id_prestamo = ?';
-        const values = [id_prestamo];
-
-        return new Promise((resolve, reject) => {
-            this.connection.query(sql, values, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result.length > 0 ? result[0] : null);
-                }
-            });
-        });
-    }
-
-    // Actualizar un prestamo
+    // Actualizar Prestamo
     update(id_prestamo, id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado) {
         const sql = `
         UPDATE prestamo SET id_equipo_per = ?, fecha_prestamo = ?, fecha_devolucion = ?, id_usuario_presta_per = ?, id_usuario_solicita_per = ?, observaciones = ?, estado = ?
@@ -262,7 +263,10 @@ class Loan {
         });
     }
 
-    // Eliminar un prestamo
+
+    // ---------- DELETES ----------
+
+    // Eliminar Prestamo ID
     delete(id_prestamo) {
         const sql = 'DELETE FROM prestamo WHERE id_prestamo = ?';
         const values = [id_prestamo];

@@ -11,7 +11,7 @@ const loan = new Loan();
 router.get('/loans', async (req, res) => {
     try {
         const loans = await loan.getAll();
-        res.json({"loans": loans});
+        res.json(loans);
     } catch (error) {
         console.error('Error en la consulta:', error);
         res.status(500).json({ error: 'Error en el servidor' });
@@ -40,9 +40,39 @@ router.get('/loans/names', async (req, res) => {
     }
 });
 
+// Ruta Obtener Prestamo por su ID
+router.get('/loans/:id_prestamo', async (req, res) => {
+    const { id_prestamo } = req.params;
+
+    try {
+        const loans = await loan.getOne(id_prestamo);
+        res.json(loans);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+})
 
 
-// Ruta para aprobar un prestamo
+// ---------- POSTS ----------
+
+// Ruta Crear una Solicitud Prestamo
+router.post('/loans', async (req, res) => {
+    const { id_equipo_per, id_usuario_solicita_per } = req.body;
+
+    try {
+        await loan.create(id_equipo_per, id_usuario_solicita_per);
+        res.json({ message: 'Prestamo Solicitado!' });
+    } catch (error) {
+        console.error('Error en la creación:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+
+// ---------- PUTS ----------
+
+// Ruta Aprobar Prestamo ID
 router.put('/loans/aprobar/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
     const { id_usuario_presta_per } = req.body;
@@ -56,7 +86,7 @@ router.put('/loans/aprobar/:id_prestamo', async (req, res) => {
     }
 });
 
-// Ruta para rechazar un prestamo
+// Ruta Rechazar Prestamo ID
 router.put('/loans/rechazar/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
 
@@ -69,7 +99,7 @@ router.put('/loans/rechazar/:id_prestamo', async (req, res) => {
     }
 });
 
-// Ruta para devolver un prestamo
+// Ruta Devolver Prestamo ID
 router.put('/loans/devolver/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
     const { observaciones } = req.body;
@@ -83,33 +113,7 @@ router.put('/loans/devolver/:id_prestamo', async (req, res) => {
     }
 });
 
-// Ruta para obtener un prestamo por su id
-router.get('/loans/:id_prestamo', async (req, res) => {
-    const { id_prestamo } = req.params;
-
-    try {
-        const loans = await loan.getOne(id_prestamo);
-        res.json(loans);
-    } catch (error) {
-        console.error('Error en la consulta:', error);
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
-})
-
-// Ruta para crear un prestamo
-router.post('/loans', async (req, res) => {
-    const { id_equipo_per, id_usuario_solicita_per } = req.body;
-
-    try {
-        await loan.create(id_equipo_per, id_usuario_solicita_per);
-        res.json({ message: 'Prestamo Solicitado!' });
-    } catch (error) {
-        console.error('Error en la creación:', error);
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
-});
-
-// Ruta para actualizar un prestamo
+// Ruta Actualizar Prestamo
 router.put('/loans/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
     const { id_equipo_per, fecha_prestamo, fecha_devolucion, id_usuario_presta_per, id_usuario_solicita_per, observaciones, estado } = req.body;
@@ -123,7 +127,10 @@ router.put('/loans/:id_prestamo', async (req, res) => {
     }
 });
 
-// Ruta para eliminar un prestamo
+
+// ---------- DELETES ----------
+
+// Ruta Eliminar Prestamo ID
 router.delete('/loans/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
 
@@ -137,7 +144,7 @@ router.delete('/loans/:id_prestamo', async (req, res) => {
 });
 
 
-// Ruta para obtener los equipos de un usuario
+// Ruta Obtener Equipos de un Usuario
 router.get('/loans/user/:id_usuario', async (req, res) => {
     const { id_usuario } = req.params;
 
