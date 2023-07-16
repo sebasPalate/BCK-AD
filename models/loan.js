@@ -104,6 +104,7 @@ class Loan {
     getEquiposByUserId(id_usuario_solicita_per) {
         const sql = `
             SELECT
+                p.id_prestamo,
                 e.nombre_equipo,
                 e.marca,
                 p.fecha_prestamo
