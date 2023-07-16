@@ -106,6 +106,7 @@ class Loan {
             SELECT
                 e.nombre_equipo,
                 e.marca
+                p.fecha_prestamo
             FROM
                 prestamo p
             INNER JOIN
