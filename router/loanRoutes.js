@@ -53,6 +53,20 @@ router.get('/loans/:id_prestamo', async (req, res) => {
     }
 })
 
+// Ruta Obtener Equipo de Prestamo de estado ACEPTADO por usuario solicitado
+router.get('/loans/aceptados/:id_usuario_solicita_per', async (req, res) => {
+    const { id_usuario_solicita_per } = req.params;
+
+    try {
+        const loans = await loan.getOneAceptado(id_usuario_solicita_per);
+        res.json(loans);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+})
+
+
 
 // ---------- POSTS ----------
 
