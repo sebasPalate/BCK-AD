@@ -116,10 +116,11 @@ router.put('/loans/rechazar/:id_prestamo', async (req, res) => {
 // Ruta Devolver Prestamo ID
 router.put('/loans/devolver/:id_prestamo', async (req, res) => {
     const { id_prestamo } = req.params;
-    const { observaciones } = req.body;
+    //const { observaciones } = req.body;
 
     try {
-        await loan.return(id_prestamo, observaciones);
+        //await loan.return(id_prestamo, observaciones);
+        await loan.return(id_prestamo);
         res.json({ message: 'Prestamo Devuelto!' });
     } catch (error) {
         console.error('Error en la actualización:', error);

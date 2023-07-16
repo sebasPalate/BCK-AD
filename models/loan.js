@@ -233,7 +233,7 @@ class Loan {
     }
 
     // Devolver Prestamo ID
-    return(id_prestamo, observaciones) {
+    return(id_prestamo) {
         const fecha_devolucion = new Date().toDateString();
         const estado = "DEVUELTO";
         const observaciones = "N/A";
