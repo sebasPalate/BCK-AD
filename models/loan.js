@@ -101,14 +101,12 @@ class Loan {
     }
 
 
-
-
     // ---------- POSTS ----------
 
     // Crear Prestamo
     create(id_equipo_per, id_usuario_solicita_per) {
         const estado = "PENDIENTE";
-        const id_usuario_presta_per = 1; // Usuario Laboratorio por defecto
+        const id_usuario_presta_per = null; // Usuario Laboratorio por defecto
 
         const sql = `
             INSERT INTO prestamo (id_equipo_per, id_usuario_presta_per, id_usuario_solicita_per, estado) VALUES (?, ?, ?, ?)
@@ -206,12 +204,13 @@ class Loan {
     // Devolver Prestamo ID
     return(id_prestamo, observaciones) {
         const fecha_devolucion = new Date().toDateString();
+        const estado = "DEVUELTO";
 
         const sql = `
             UPDATE
                 prestamo
             SET
-                fecha_devolucion = ?, observaciones = ?
+                fecha_devolucion = ?, observaciones = ?, estado = ?
             WHERE
                 id_prestamo = ?
         `;
@@ -224,7 +223,7 @@ class Loan {
             WHERE
                 id_equipo = (SELECT id_equipo_per FROM prestamo WHERE id_prestamo = ?)
         `;
-        const values = [fecha_devolucion, observaciones, id_prestamo];
+        const values = [fecha_devolucion, observaciones, estado, id_prestamo];
         const values2 = [id_prestamo];
 
         return new Promise((resolve, reject) => {
@@ -239,6 +238,31 @@ class Loan {
                             resolve();
                         }
                     });
+                }
+            });
+        });
+    }
+
+    // Cancelar Prestamo ID
+    cancel(id_prestamo) {
+        const estado = "CANCELADO";
+
+        const sql = `
+            UPDATE
+                prestamo
+            SET
+                estado = ?
+            WHERE
+                id_prestamo = ?
+        `;
+        const values = [estado, id_prestamo];
+
+        return new Promise((resolve, reject) => {
+            this.connection.query(sql, values, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
                 }
             });
         });
