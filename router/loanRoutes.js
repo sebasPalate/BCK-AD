@@ -58,7 +58,7 @@ router.get('/loans/aceptados/:id_usuario_solicita_per', async (req, res) => {
     const { id_usuario_solicita_per } = req.params;
 
     try {
-        const loans = await loan.getOneAceptado(id_usuario_solicita_per);
+        const loans = await loan.getEquiposByUserId(id_usuario_solicita_per);
         res.json(loans);
     } catch (error) {
         console.error('Error en la consulta:', error);
