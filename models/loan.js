@@ -236,6 +236,7 @@ class Loan {
     return(id_prestamo, observaciones) {
         const fecha_devolucion = new Date().toDateString();
         const estado = "DEVUELTO";
+        const observaciones = "N/A";
 
         const sql = `
             UPDATE
