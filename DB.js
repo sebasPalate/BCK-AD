@@ -6,7 +6,7 @@ class DB {
     this.connection = mysql.createConnection({
       //host: '34.151.203.189',
       //host: 'localhost',
-      host: '34.172.141.114'
+      host: '34.172.141.114',
       port: '3306',
       //user: 'bck-ad',
       user: 'root',
